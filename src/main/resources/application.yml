@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: portfolio-backend
+  
+  # PostgreSQL Configuration (optional - app will start even if DB is not available)
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/portfolio_db}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    continue-on-error: true
+  
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+  
+  # MongoDB Configuration (optional - app will start even if DB is not available)
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/portfolio_db}
+      database: ${MONGODB_DATABASE:portfolio_db}
+  
+  # Auto-configuration exclusions (only when databases are not needed)
+  autoconfigure:
+    exclude: []
+
+# Server Configuration
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /
+
+# Actuator Configuration (for health checks)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.portfolio: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
