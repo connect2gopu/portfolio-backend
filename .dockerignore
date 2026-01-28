@@ -1,0 +1,11 @@
+target
+.git
+.idea
+*.iml
+.DS_Store
+
+# Maven / build artifacts
+**/.classpath
+**/.project
+**/.settings
+**/out

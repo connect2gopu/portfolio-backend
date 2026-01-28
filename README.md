@@ -209,6 +209,61 @@ sudo certbot --nginx -d api.domain.com
 | `JPA_DDL_AUTO` | JPA DDL mode | `validate` |
 | `JPA_SHOW_SQL` | Show SQL queries | `false` |
 
+## Docker
+
+### Option A: Docker Compose (recommended)
+
+This starts the backend + PostgreSQL + MongoDB:
+
+```bash
+docker compose up --build
+```
+
+API will be available at:
+- `GET http://localhost:8080/v1/health`
+- `GET http://localhost:8080/v2/health`
+
+To stop and remove containers (keeps DB volumes):
+
+```bash
+docker compose down
+```
+
+To also remove DB volumes:
+
+```bash
+docker compose down -v
+```
+
+### Option B: Build and run only the backend container
+
+Build:
+
+```bash
+docker build -t portfolio-backend .
+```
+
+Run (pointing to external DB hosts):
+
+```bash
+docker run --rm -p 8080:8080 \
+  -e SPRING_PROFILES_ACTIVE=dev \
+  -e POSTGRES_URL=jdbc:postgresql://localhost:5432/portfolio_db \
+  -e POSTGRES_USERNAME=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e MONGODB_URI=mongodb://localhost:27017/portfolio_db \
+  -e MONGODB_DATABASE=portfolio_db \
+  portfolio-backend
+```
+
+Run without databases (health endpoint only):
+
+```bash
+docker run --rm -p 8080:8080 \
+  -e APP_DATABASES_ENABLED=false \
+  portfolio-backend
+```
+
 ## Next Steps
 
 - [ ] Add authentication/authorization (JWT)
