@@ -4,7 +4,7 @@ spring:
   
   # PostgreSQL Configuration (optional - app will start even if DB is not available)
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/portfolio_db}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/portfolioDb}
     username: ${POSTGRES_USERNAME:postgres}
     password: ${POSTGRES_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -23,8 +23,8 @@ spring:
   # MongoDB Configuration (optional - app will start even if DB is not available)
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://localhost:27017/portfolio_db}
-      database: ${MONGODB_DATABASE:portfolio_db}
+      uri: ${MONGODB_URI:mongodb://localhost:27017/portfolioDb}
+      database: ${MONGODB_DATABASE:portfolioDb}
   
   # Auto-configuration exclusions (only when databases are not needed)
   autoconfigure:

@@ -33,15 +33,15 @@ Edit `src/main/resources/application.yml` or set environment variables:
 
 **PostgreSQL:**
 ```bash
-export POSTGRES_URL=jdbc:postgresql://localhost:5432/portfolio_db
+export POSTGRES_URL=jdbc:postgresql://localhost:5432/portfolioDb
 export POSTGRES_USERNAME=postgres
 export POSTGRES_PASSWORD=your_password
 ```
 
 **MongoDB:**
 ```bash
-export MONGODB_URI=mongodb://localhost:27017/portfolio_db
-export MONGODB_DATABASE=portfolio_db
+export MONGODB_URI=mongodb://localhost:27017/portfolioDb
+export MONGODB_DATABASE=portfolioDb
 ```
 
 ### 3. Run the Application
@@ -200,11 +200,11 @@ sudo certbot --nginx -d api.domain.com
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `POSTGRES_URL` | PostgreSQL connection URL | `jdbc:postgresql://localhost:5432/portfolio_db` |
+| `POSTGRES_URL` | PostgreSQL connection URL | `jdbc:postgresql://localhost:5432/portfolioDb` |
 | `POSTGRES_USERNAME` | PostgreSQL username | `postgres` |
 | `POSTGRES_PASSWORD` | PostgreSQL password | `postgres` |
-| `MONGODB_URI` | MongoDB connection URI | `mongodb://localhost:27017/portfolio_db` |
-| `MONGODB_DATABASE` | MongoDB database name | `portfolio_db` |
+| `MONGODB_URI` | MongoDB connection URI | `mongodb://localhost:27017/portfolioDb` |
+| `MONGODB_DATABASE` | MongoDB database name | `portfolioDb` |
 | `SERVER_PORT` | Server port | `8080` |
 | `JPA_DDL_AUTO` | JPA DDL mode | `validate` |
 | `JPA_SHOW_SQL` | Show SQL queries | `false` |
@@ -248,11 +248,11 @@ Run (pointing to external DB hosts):
 ```bash
 docker run --rm -p 8080:8080 \
   -e SPRING_PROFILES_ACTIVE=dev \
-  -e POSTGRES_URL=jdbc:postgresql://localhost:5432/portfolio_db \
+  -e POSTGRES_URL=jdbc:postgresql://localhost:5432/portfolioDb \
   -e POSTGRES_USERNAME=postgres \
   -e POSTGRES_PASSWORD=postgres \
-  -e MONGODB_URI=mongodb://localhost:27017/portfolio_db \
-  -e MONGODB_DATABASE=portfolio_db \
+  -e MONGODB_URI=mongodb://localhost:27017/portfolioDb \
+  -e MONGODB_DATABASE=portfolioDb \
   portfolio-backend
 ```
 
