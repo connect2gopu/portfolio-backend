@@ -1,15 +1,18 @@
 # syntax=docker/dockerfile:1
 
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
-# Cache dependencies first
-COPY pom.xml .
-RUN mvn -q -DskipTests dependency:go-offline
+# Copy Gradle wrapper and configuration
+COPY gradle gradle
+COPY gradlew build.gradle.kts settings.gradle.kts ./
+
+# Cache dependencies
+RUN ./gradlew dependencies --no-daemon
 
 # Build application
 COPY src ./src
-RUN mvn -q -DskipTests package
+RUN ./gradlew clean build -x test --no-daemon
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
@@ -20,7 +23,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && useradd -r -u 10001 -g root app
 
-COPY --from=build /app/target/*.jar /app/app.jar
+COPY --from=build /app/build/libs/*.jar /app/app.jar
 
 ENV SERVER_PORT=8080
 EXPOSE 8080

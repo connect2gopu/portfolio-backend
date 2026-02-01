@@ -14,7 +14,8 @@ Backend service for portfolio website built with Spring Boot, supporting both Po
 ## Prerequisites
 
 - Java 17 or higher
-- Maven 3.6+
+- Java 17 or higher
+- Gradle 8.5+ (Wrapper provided)
 - PostgreSQL (for SQL database)
 - MongoDB (for NoSQL database)
 
@@ -24,7 +25,7 @@ Backend service for portfolio website built with Spring Boot, supporting both Po
 
 ```bash
 cd portfolio-backend
-mvn clean install
+./gradlew clean build
 ```
 
 ### 2. Configure Database Connections
@@ -48,28 +49,28 @@ export MONGODB_DATABASE=portfolioDb
 
 **Without databases (for testing health endpoint only):**
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=local
+./gradlew bootRun --args='--spring.profiles.active=local'
 ```
 
 **Development (with databases):**
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+./gradlew bootRun --args='--spring.profiles.active=dev'
 ```
 
 **Production (with databases):**
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
+./gradlew bootRun --args='--spring.profiles.active=prod'
 ```
 
 **Default (with databases):**
 ```bash
-mvn spring-boot:run
+./gradlew bootRun
 ```
 
 Or build and run the JAR:
 ```bash
-mvn clean package
-java -jar target/portfolio-backend-1.0.0.jar --spring.profiles.active=prod
+./gradlew clean build
+java -jar build/libs/portfolio-backend-1.0.0.jar --spring.profiles.active=prod
 ```
 
 ## API Endpoints
@@ -116,7 +117,8 @@ portfolio-backend/
 │   │       ├── application-dev.yml
 │   │       └── application-prod.yml
 │   └── test/                    # Test files
-├── pom.xml
+├── build.gradle.kts
+├── settings.gradle.kts
 └── README.md
 ```
 
@@ -125,13 +127,13 @@ portfolio-backend/
 ### 1. Build the Application
 
 ```bash
-mvn clean package -DskipTests
+./gradlew clean build -x test
 ```
 
 ### 2. Transfer to VPS
 
 ```bash
-scp target/portfolio-backend-1.0.0.jar user@your-vps-ip:/opt/portfolio-backend/
+scp build/libs/portfolio-backend-1.0.0.jar user@your-vps-ip:/opt/portfolio-backend/
 ```
 
 ### 3. Create Systemd Service
